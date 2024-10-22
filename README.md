@@ -58,6 +58,8 @@ Após iniciar a aplicação, você pode acessar os seguintes endpoints:
 
 Documentação da API: http://localhost:8080/swagger-ui.html
 API Docs: http://localhost:8080/v3/api-docs
+RabbitMQ: http://localhost:15672
+user/password : guest
 
 **Exemplo de Requisição**
 ```
