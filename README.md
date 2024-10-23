@@ -66,6 +66,8 @@ user/password : guest
 curl -X GET http://localhost:8080/v1/exemplo
 ```
 
+**Observações**
+Assim que encerrar a sessão o resultado será mostrado no console da aplicação, mas tambem pode verificar o resultado da aplicação via url.
 
 ## Versionamento da API
 A API utiliza versionamento na URL. As versões da API são especificadas na URL, permitindo que diferentes versões coexistam. Por exemplo, para acessar a versão 1 da API, utilize o seguinte formato:
