@@ -66,7 +66,7 @@ user/password : guest
 curl -X GET http://localhost:8080/v1/exemplo
 ```
 
-**Observações**
+## Observações
 Assim que encerrar a sessão o resultado será mostrado no console da aplicação, mas tambem pode verificar o resultado da aplicação via url.
 
 ## Versionamento da API
