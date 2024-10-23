@@ -67,7 +67,7 @@ curl -X GET http://localhost:8080/v1/exemplo
 ```
 
 ## Observações
-Assim que encerrar a sessão o resultado será mostrado no console da aplicação, mas tambem pode verificar o resultado da aplicação via url.
+A sessão ficará disponivel pelo tempo que foi informado ou por default(1 minuto), assim que for encerrado o resultado será mostrado no console da aplicação, mas tambem pode verificar o resultado de qualquer sessão via url.
 
 ## Versionamento da API
 A API utiliza versionamento na URL. As versões da API são especificadas na URL, permitindo que diferentes versões coexistam. Por exemplo, para acessar a versão 1 da API, utilize o seguinte formato:
