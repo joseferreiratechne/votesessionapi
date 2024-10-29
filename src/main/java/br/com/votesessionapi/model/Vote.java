@@ -14,11 +14,15 @@ public class Vote {
 
     @ManyToOne
     @JoinColumn(name = "session_id", nullable = false)
-    private Session session; // Relação com a sessão de votação
+    private Session session;
 
     @ManyToOne
     @JoinColumn(name = "member_id", nullable = false)
     private Member member;
+
+    @ManyToOne
+    @JoinColumn(name = "topic_id")
+    private Topic topic;
 
     @Enumerated(EnumType.ORDINAL)
     @Column(name = "vote", nullable = false)

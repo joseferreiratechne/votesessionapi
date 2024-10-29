@@ -24,6 +24,7 @@ public class VoteController {
     @Operation(summary = "register your vote")
     public ResponseEntity<VoteResponse> voteRegistration(@Parameter(description = "data to register your vote",required = true)@RequestBody @Valid VoteRequest voteRequest) {
             var vote = voteService.voteRegistration(voteRequest.getSessionId(),
+                    voteRequest.getTopicId(),
                     voteRequest.getMemberId(),
                     voteRequest.getVote().getCode());
             var response = new VoteResponse();

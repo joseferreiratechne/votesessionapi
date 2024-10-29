@@ -1,5 +1,6 @@
 package br.com.votesessionapi.service.impl;
 
+import br.com.votesessionapi.response.ApiResponse;
 import br.com.votesessionapi.response.UserStatusResponse;
 import br.com.votesessionapi.service.CpfValidationService;
 import lombok.RequiredArgsConstructor;
@@ -17,14 +18,18 @@ public class CpfValidationServiceImpl implements CpfValidationService {
 
 
     @Override
-    public boolean canVote(String cpf) {
+    public ApiResponse validateCpf(String cpf) {
         try {
             // Fazendo a requisição para o endpoint de validação do CPF
             var response = restTemplate.getForObject(CPF_VALIDATION_URL + cpf, UserStatusResponse.class);
-            return response != null && "ABLE_TO_VOTE".equals(response.getStatus());
+            if (response != null && "ABLE_TO_VOTE".equals(response.getStatus())) {
+                return new ApiResponse("ABLE_TO_VOTE");
+            } else {
+                return new ApiResponse("UNABLE_TO_VOTE");
+            }
         } catch (HttpClientErrorException.NotFound e) {
             // CPF não encontrado
-            return false;
+            return new ApiResponse("UNABLE_TO_VOTE");
         }
     }
 }

@@ -1,6 +1,5 @@
 package br.com.votesessionapi.controller;
 
-import br.com.votesessionapi.model.Member;
 import br.com.votesessionapi.request.MemberRequest;
 import br.com.votesessionapi.response.MemberResponse;
 import br.com.votesessionapi.service.MemberService;
@@ -26,10 +25,9 @@ public class MemberController {
     @PostMapping
     @Operation(summary  = "create a new member")
     public ResponseEntity<MemberResponse> createMember(@Parameter(description = "data to create member",required = true) @RequestBody @Valid MemberRequest memberRequest){
-            var member = new Member();
-            member.setCpf(memberRequest.getCpf());
-            var memberCreated = memberService.createMember(member);
+            var memberCreated = memberService.createMember(memberRequest.getCpf());
             var memberResponse = new MemberResponse();
+            memberResponse.setId(memberCreated.getId());
             memberResponse.setCpf(memberCreated.getCpf());
             memberResponse.setMessage("Member registered successfully");
             return ResponseEntity.ok(memberResponse);

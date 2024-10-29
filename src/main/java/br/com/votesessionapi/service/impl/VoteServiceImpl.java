@@ -6,9 +6,9 @@ import br.com.votesessionapi.model.Vote;
 import br.com.votesessionapi.model.VoteEnum;
 import br.com.votesessionapi.repository.MemberRepository;
 import br.com.votesessionapi.repository.SessionRepository;
+import br.com.votesessionapi.repository.TopicRepository;
 import br.com.votesessionapi.repository.VoteRepository;
 import br.com.votesessionapi.response.VoteResultsResponse;
-import br.com.votesessionapi.service.CpfValidationService;
 import br.com.votesessionapi.service.VoteService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -23,16 +23,19 @@ public class VoteServiceImpl implements VoteService {
     private final VoteRepository voteRepository;
     private final SessionRepository sessionRepository;
     private final MemberRepository memberRepository;
-    private final CpfValidationService cpfValidationService;
+    private final TopicRepository topicRepository;
 
     @Override
-    public Vote voteRegistration(Long sessionId, Long memberId, int vote) {
+    public Vote voteRegistration(Long sessionId,Long topicId ,Long memberId,int vote) {
         var sessionModel = sessionRepository.findById(sessionId)
                 .orElseThrow(() -> new EntityNotFoundException("Session not found"));
 
         if (!sessionModel.isOpen()){
             throw new SessionClosedException("Voting session is closed");
         }
+
+        var topicModel = topicRepository.findById(topicId)
+                .orElseThrow(() -> new EntityNotFoundException("Topic not found"));
 
         var memberModel = memberRepository.findById(memberId)
                 .orElseThrow(() -> new EntityNotFoundException("Member not found"));
@@ -43,6 +46,7 @@ public class VoteServiceImpl implements VoteService {
 
         Vote voteModel = new Vote();
         voteModel.setSession(sessionModel);
+        voteModel.setTopic(topicModel);
         voteModel.setMember(memberModel);
         voteModel.setVoteEnum(VoteEnum.fromCode(vote));
 

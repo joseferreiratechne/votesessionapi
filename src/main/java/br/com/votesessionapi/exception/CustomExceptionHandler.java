@@ -1,5 +1,6 @@
 package br.com.votesessionapi.exception;
 
+import br.com.votesessionapi.response.ErrorResponse;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -67,31 +68,5 @@ public class CustomExceptionHandler {
         return new ResponseEntity<>(new ErrorResponse("SESSION_ALREADY_OPEN", ex.getMessage()), HttpStatus.CONFLICT);
     }
 
-    // Classe interna para estruturar a resposta de erro
-    static class ErrorResponse {
-        private String code;
-        private String message;
 
-        public ErrorResponse(String code, String message) {
-            this.code = code;
-            this.message = message;
-        }
-
-        // Getters e setters
-        public String getCode() {
-            return code;
-        }
-
-        public void setCode(String code) {
-            this.code = code;
-        }
-
-        public String getMessage() {
-            return message;
-        }
-
-        public void setMessage(String message) {
-            this.message = message;
-        }
-    }
 }

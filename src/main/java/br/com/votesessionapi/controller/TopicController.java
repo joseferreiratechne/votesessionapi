@@ -26,13 +26,11 @@ public class TopicController {
     @PostMapping
     @Operation(summary = "create a new member")
     public ResponseEntity<TopicResponse> createTopic(@Parameter(description = "data to create topic",required = true)@RequestBody @Valid TopicRequest topicRequest){
-        var topic = new Topic();
-        topic.setDescription(topicRequest.getDescription());
-
-        var topicModel = topicService.createTopic(topic);
+        var topicModel = topicService.createTopic(topicRequest.getDescription(), topicRequest.getCreatedBy());
 
         var topicResponse = new TopicResponse();
 
+        topicResponse.setId(topicModel.getId());
         topicResponse.setDescription(topicModel.getDescription());
         topicResponse.setMessage("Topic registered successfully");
 

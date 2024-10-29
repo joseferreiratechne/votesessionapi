@@ -1,5 +1,7 @@
 package br.com.votesessionapi.service;
 
+import br.com.votesessionapi.response.ApiResponse;
+
 public interface CpfValidationService {
-    boolean canVote(String cpf);
+    public ApiResponse validateCpf(String cpf);
 }

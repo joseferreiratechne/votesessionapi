@@ -15,8 +15,10 @@ public class MemberServiceImpl implements MemberService {
     private final MemberRepository memberRepository;
 
     @Override
-    public Member createMember(Member member) {
+    public Member createMember(String cpf) {
         try {
+            Member member = new Member();
+            member.setCpf(cpf);
             return memberRepository.save(member);
         } catch (DataIntegrityViolationException e) {
             throw new MemberAlreadyRegisteredException("Member Already Registered");

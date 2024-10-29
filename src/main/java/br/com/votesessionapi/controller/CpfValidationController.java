@@ -1,5 +1,6 @@
 package br.com.votesessionapi.controller;
 
+import br.com.votesessionapi.response.ApiResponse;
 import br.com.votesessionapi.service.CpfValidationService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -25,25 +26,7 @@ public class CpfValidationController {
     @GetMapping("/{cpf}")
     @Operation(summary = "Check that the CPF is valid for voting")
     public ResponseEntity<Object> cpfValidation(@Parameter(description = "CPF",required = true) @PathVariable String cpf){
-        var canVote = cpfValidationService.canVote(cpf);
-        if (!canVote){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(new ApiResponse ("UNABLE_TO_VOTE"));
-        }else {
-            return ResponseEntity.status(HttpStatus.OK)
-                    .body(new ApiResponse("ABLE_TO_VOTE"));
-        }
+        var validationResponse = cpfValidationService.validateCpf(cpf);
+        return ResponseEntity.status(HttpStatus.OK).body(validationResponse);
     }
-
-    @Setter
-    @Getter
-    public static class ApiResponse {
-        private String message;
-
-        public ApiResponse(String message) {
-            this.message = message;
-        }
-
-    }
-
 }
